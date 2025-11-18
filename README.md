@@ -16,6 +16,9 @@ This is a simple CRUD (Create, Read, Update, Delete) application built with **Go
 
 ---
 
+### PREVIEW
+![preview](/assets/preview.png)
+
 ## Prerequisites
 Before running the application, ensure you have the following installed:
 - [Docker](https://www.docker.com/get-started)
