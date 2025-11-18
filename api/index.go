@@ -51,7 +51,7 @@ func setupApp() *gin.Engine {
 	r.GET("/", func(c *gin.Context) {
 		users, err := getUsersFromDB()
 		if err != nil {
-			c.HTML(http.StatusInternalServerError, "index.html", gin.H{"error": err.Error()})
+			c.HTML(500, "index.html", gin.H{"error": err.Error()})
 			return
 		}
 		c.HTML(http.StatusOK, "index.html", gin.H{"users": users})
@@ -60,7 +60,7 @@ func setupApp() *gin.Engine {
 	r.GET("/users", func(c *gin.Context) {
 		users, err := getUsersFromDB()
 		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			c.JSON(500, gin.H{"error": err.Error()})
 			return
 		}
 		c.JSON(http.StatusOK, users)
