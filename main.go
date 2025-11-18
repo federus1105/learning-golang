@@ -5,25 +5,20 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
-)
-
-const (
-	host     = "db" // Use the container name
-	port     = 5432                // Use the container's internal port
-	user     = "postgres"
-	password = "mysecretpassword"
-	dbname   = "learningdb"
 )
 
 var db *sql.DB
 
 func main() {
 	// Connect to the database
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
-		host, port, user, password, dbname)
+	psqlInfo := os.Getenv("DATABASE_URL")
+	if psqlInfo == "" {
+		log.Fatal("DATABASE_URL environment variable is not set")
+	}
 	var err error
 	db, err = sql.Open("postgres", psqlInfo)
 	if err != nil {
