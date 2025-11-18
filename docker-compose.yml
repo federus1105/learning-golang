@@ -1,0 +1,29 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_DB: learningdb
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 3s
+      timeout: 5s
+      retries: 10
+  
+  backend:
+    build: .
+    environment:
+      DATABASE_URL: "postgres://postgres:mysecretpassword@db:5432/learningdb?sslmode=disable"
+    ports:
+      - "7777:7777"
+    depends_on:
+      db:
+        condition: service_healthy
+volumes:
+  db-data:
