@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	host     = "learning-postgres" // Use the container name
+	host     = "db" // Use the container name
 	port     = 5432                // Use the container's internal port
 	user     = "postgres"
 	password = "mysecretpassword"
@@ -70,7 +70,7 @@ func main() {
 	r.DELETE("/users/:id", deleteUser)
 
 	// Start the server
-	r.Run(":8080")
+	r.Run("0.0.0.0:7777")
 }
 
 // Handler to create a new user
