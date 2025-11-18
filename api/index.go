@@ -15,6 +15,9 @@ import (
 
 var App *gin.Engine
 var db *sql.DB
+
+// Embed templates
+//go:embed templates/*
 var templatesFS embed.FS
 
 func Serve(w http.ResponseWriter, r *http.Request) {
