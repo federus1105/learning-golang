@@ -49,7 +49,8 @@ func setupApp() *gin.Engine {
 	r.Use(gin.Recovery())
 
 	// LOAD TEMPLATES
-	r.SetHTMLTemplate(template.Must(template.ParseFS(templatesFS, "templates/*")))
+	tmpl := template.Must(template.ParseFS(templatesFS, "templates/*"))
+	r.SetHTMLTemplate(tmpl)
 
 	// ROUTES
 	r.GET("/", func(c *gin.Context) {
