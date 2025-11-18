@@ -25,7 +25,15 @@ Before running the application, ensure you have the following installed:
 - [Docker Compose](https://docs.docker.com/compose/install/) (optional)
 
 ---
+### ENV
+```bash
+POSTGRES_USER=<postgres_user>
+POSTGRES_PASSWORD=<postgres_password>
+POSTGRES_DB=<postgres_db>
 
+DATABASE_URL=postgres://<postgres_user>:<postgres_password>@db:5432/<postgres_db>?sslmode=disable
+
+```
 ## Getting Started
 
 ### 1. Clone the Repository
