@@ -2,7 +2,9 @@ package handler
 
 import (
 	"database/sql"
+	"embed"
 	"fmt"
+	"html/template"
 	"log"
 	"net/http"
 	"os"
@@ -13,6 +15,7 @@ import (
 
 var App *gin.Engine
 var db *sql.DB
+var templatesFS embed.FS
 
 func Serve(w http.ResponseWriter, r *http.Request) {
 	if App == nil {
@@ -46,7 +49,7 @@ func setupApp() *gin.Engine {
 	r.Use(gin.Recovery())
 
 	// LOAD TEMPLATES
-	r.LoadHTMLGlob("templates/*")
+	r.SetHTMLTemplate(template.Must(template.ParseFS(templatesFS, "templates/*")))
 
 	// ROUTES
 	r.GET("/", func(c *gin.Context) {
